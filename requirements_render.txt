@@ -1,40 +1,39 @@
-# Lightweight requirements for Render free (512 MB) deployments
-# Excludes heavy ML libs (torch, transformers, sentence-transformers, faiss, scikit-learn)
-# Pins are matched to the main requirements.txt where available
-
+# Core web frameworks
 fastapi==0.119.1
 uvicorn==0.38.0
 streamlit==1.50.0
+
+# HTTP / API clients
 requests==2.32.5
 httpx==0.28.1
 requests-toolbelt==1.0.0
-
 python-dotenv==1.1.1
 PyYAML==6.0.3
-typing_extensions==4.15.0
 
+# Data / type utilities
+typing_extensions==4.15.0
 pydantic==2.12.3
 numpy==2.3.4
 pandas==2.3.3
 
+# File / document handling
 python-multipart==0.0.20
 python-docx==1.2.0
 PyMuPDF==1.26.5
 docx==0.2.4
 
-# Optional API clients (include only if you use them on Render)
-huggingface-hub==0.14.1
+# Optional API clients
+huggingface-hub==0.17.3
 openai==2.6.0
 
-# ------------------------------------------------------------------
-# ML / embedding packages required by the project (added per request)
-# Note: these are heavy packages and will likely cause long builds or
-# exceed Render's 512MB free-instance limits. If you plan to run the
-# full project (embedding/RAG features) on Render, consider using a
-# paid instance or a different host. Install at your own risk.
-# ------------------------------------------------------------------
+# ML / embedding packages (compatible versions)
 sentence-transformers==2.2.2
-transformers==4.57.1
-torch==2.9.0
+transformers==4.33.1
+torch==2.2.0
+torchvision==0.15.2
 faiss-cpu==1.12.0
 scikit-learn==1.7.2
+nltk==3.9.2
+sentencepiece==0.2.1
+scipy==1.16.2
+tqdm==4.67.1
