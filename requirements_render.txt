@@ -25,3 +25,16 @@ docx==0.2.4
 # Optional API clients (include only if you use them on Render)
 huggingface-hub==0.35.3
 openai==2.6.0
+
+# ------------------------------------------------------------------
+# ML / embedding packages required by the project (added per request)
+# Note: these are heavy packages and will likely cause long builds or
+# exceed Render's 512MB free-instance limits. If you plan to run the
+# full project (embedding/RAG features) on Render, consider using a
+# paid instance or a different host. Install at your own risk.
+# ------------------------------------------------------------------
+sentence-transformers==2.2.2
+transformers==4.57.1
+torch==2.9.0
+faiss-cpu==1.12.0
+scikit-learn==1.7.2
