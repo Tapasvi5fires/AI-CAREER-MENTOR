@@ -1,0 +1,27 @@
+# Lightweight requirements for Render free (512 MB) deployments
+# Excludes heavy ML libs (torch, transformers, sentence-transformers, faiss, scikit-learn)
+# Pins are matched to the main requirements.txt where available
+
+fastapi==0.119.1
+uvicorn==0.38.0
+streamlit==1.50.0
+requests==2.32.5
+httpx==0.28.1
+requests-toolbelt==1.0.0
+
+python-dotenv==1.1.1
+PyYAML==6.0.3
+typing_extensions==4.15.0
+
+pydantic==2.12.3
+numpy==2.3.4
+pandas==2.3.3
+
+python-multipart==0.0.20
+python-docx==1.2.0
+PyMuPDF==1.26.5
+docx==0.2.4
+
+# Optional API clients (include only if you use them on Render)
+huggingface-hub==0.35.3
+openai==2.6.0

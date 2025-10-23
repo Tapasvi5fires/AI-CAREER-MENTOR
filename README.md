@@ -60,38 +60,80 @@ pip install -r requirements.txt
 pip install fastapi uvicorn requests python-dotenv numpy sentence-transformers python-docx "python-multipart" "PyMuPDF" httpx
 
 
+
 Step 3: Configure Secrets
 
-Create a file named .env in the root directory of the project and add your Gemini API key:
+Create a file named .env in the root directory of the project (or set Render environment variables) and add your keys.
 
-# .env file
-LLM_API_KEY="AIzaSy...YOUR_GEMINI_API_KEY_HERE"
-# Optional: Set RAG path if index is available
-# VECTOR_DB_PATH="./data/skills_index.faiss" 
+Example (.env):
 
+LLM_API_KEY="your_gemini_or_llm_api_key_here"
+JOB_API_KEY="optional_job_api_key_for_external_job_search"
+VECTOR_DB_PATH="./data/skills_index.faiss"
 
-▶️ How to Run the Application
+You can also use the provided `.env.example` as a template.
+
+▶️ How to Run the Application Locally
 
 You must start the backend (FastAPI) first, followed by the frontend (Streamlit).
 
 1. Start the Backend API (FastAPI)
 
-Run the backend server using Uvicorn. This will host the /analyze-profile endpoint on port 7311.
+Run the backend server using Uvicorn. For local development this project uses port 7311
+by default (see `run.txt`). Ensure your virtualenv is active, then:
 
-# Ensure your environment is active
 uvicorn app.main:app --reload --port 7311
-
 
 (The terminal should show: Uvicorn running on http://0.0.0.0:7311)
 
 2. Start the Frontend (Streamlit)
 
 In a separate terminal window (with the same virtual environment active), start the Streamlit application.
+By default this repo used port 7312 for Streamlit locally (see `run.txt`). Run:
 
-streamlit run streamlit_app.py
+streamlit run ui/app.py --server.port=7312
 
+Make sure BACKEND_URL in your environment points to the backend (default local: http://localhost:7311).
 
-(The app will open automatically in your browser, typically at http://localhost:8501)
+(The app will open automatically in your browser, typically at http://localhost:7312)
+
+Deploying to Render (free tier)
+
+We recommend creating two separate services on Render: one for the backend and one for the frontend.
+
+Backend service (ai-career-mentor-backend)
+
+- Service Name: ai-career-mentor-backend
+- Environment / Runtime: Python 3.x
+- Build Command: pip install -r requirements.txt
+- Start Command: uvicorn app.main:app --host 0.0.0.0 --port 10000
+
+Frontend service (ai-career-mentor-ui)
+
+- Service Name: ai-career-mentor-ui
+- Environment / Runtime: Python 3.x
+- Build Command: pip install -r requirements.txt
+- Start Command: streamlit run ui/app.py --server.port=10000 --server.address=0.0.0.0
+
+Notes on Ports
+
+- Render assigns public ports automatically; the service start commands above instruct the app to listen on port 10000 inside the container. Render will handle the external port mapping.
+
+Environment Variables to add in Render dashboard (Service → Environment):
+
+- LLM_API_KEY (required if you want LLM features)
+- BACKEND_URL (required for the frontend service: set this to the backend's public Render URL after the backend is deployed)
+- JOB_API_KEY (optional)
+- VECTOR_DB_PATH (optional, if you deploy with a FAISS index)
+
+Automatic linking
+
+1. Create the backend service on Render using the settings above. Once the backend build finishes, copy the backend's public URL (for example: https://ai-career-mentor-backend.onrender.com).
+2. Create the frontend service on Render. In the frontend service's Environment tab, add `BACKEND_URL` and set its value to the backend's public URL.
+
+The Streamlit app reads `BACKEND_URL` from the environment and will call the deployed backend automatically.
+
+If you want a single place that lists these Render settings (copy/paste friendly), see `render-services.md` in the repo.
 
 Troubleshooting
 

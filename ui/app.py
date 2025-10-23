@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import requests
 import fitz  # PyMuPDF for PDF text extraction (frontend helper)
@@ -6,7 +7,12 @@ import io
 import mimetypes
 
 # Configuration
-BACKEND_URL = "http://localhost:7311" 
+# Use BACKEND_URL env var (Render will set this in the Environment settings).
+# Default falls back to your local backend for local development (preserves your
+# existing local ports). When deployed on Render, set BACKEND_URL in the
+# frontend service's environment to the backend's Render URL.
+# Locally this keeps the backend at http://localhost:7311 (as in run.txt).
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:7311")
 
 st.set_page_config(layout="wide", page_title="AI Career Mentor")
 st.title("AI Career Mentor")
