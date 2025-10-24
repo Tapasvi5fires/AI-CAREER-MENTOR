@@ -1,43 +1,36 @@
-# Render configuration for ai-career-mentor (backend + frontend)
-# This file declares two web services that can be used by Render's Git-based deploy.
+# Render configuration for AI Career Mentor (backend + frontend)
+# Two web services: FastAPI backend + Streamlit frontend
 
 services:
   - type: web
     name: ai-career-mentor-backend
     env: python
     branch: main
+    pythonVersion: 3.12.10
     buildCommand: pip install -r requirements_render.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 10000
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 7311
+    plan: free
     healthCheckPath: /
     envVars:
       - key: LLM_API_KEY
-        value: ""
-        required: true
+        sync: false
       - key: JOB_API_KEY
-        value: ""
-        required: false
+        sync: false
       - key: MODEL_NAME
-        value: "chat-bison-001"
-        required: false
+        value: "gemini-pro"
       - key: VECTOR_DB_PATH
         value: "./data/skills_index.faiss"
-        required: false
       - key: FRONTEND_URL
-        value: ""
-        required: false
+        sync: false
 
   - type: web
     name: ai-career-mentor-ui
     env: python
     branch: main
+    pythonVersion: 3.12.10
     buildCommand: pip install -r requirements_render.txt
-    startCommand: streamlit run ui/app.py --server.port=10000 --server.address=0.0.0.0
+    startCommand: streamlit run ui/app.py --server.port=7312 --server.address=0.0.0.0
+    plan: free
     envVars:
       - key: BACKEND_URL
-        value: ""
-        required: true
-
-# Notes:
-# - After the backend deploys, paste its public URL into the frontend BACKEND_URL value
-#   in Render's dashboard or via the Render UI for this service's environment variables.
-# - Both services use the lightweight `requirements_render.txt` to reduce memory/build footprint.
+        sync: false
