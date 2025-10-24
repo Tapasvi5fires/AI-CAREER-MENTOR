@@ -2,6 +2,9 @@
 
 This application is a full-stack career analysis tool built with a modular FastAPI backend and a user-friendly Streamlit frontend. It uses the Gemini API to analyze a user's resume, extract detailed skill and experience data, and generate personalized, high-quality career recommendations, roadmaps, and project ideas.
 
+Frontend Access link :https://ai-career-mentor-frontend-2u2q.onrender.com/
+Backend link :
+
 ✨ Key Features
 
 Robust Profile Extraction: Uses the GeminiAgent to extract core data (skills, interests, education, certifications, career level) into a structured JSON format.
