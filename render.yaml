@@ -1,36 +1,24 @@
-# Render configuration for AI Career Mentor (backend + frontend)
-# Two web services: FastAPI backend + Streamlit frontend
-
 services:
   - type: web
-    name: ai-career-mentor-backend
+    name: ai-backend
     env: python
-    branch: main
-    pythonVersion: 3.12.10
-    buildCommand: pip install -r requirements_render.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port 7311
-    plan: free
-    healthCheckPath: /
     envVars:
-      - key: LLM_API_KEY
-        sync: false
-      - key: JOB_API_KEY
-        sync: false
-      - key: MODEL_NAME
-        value: "gemini-pro"
-      - key: VECTOR_DB_PATH
-        value: "./data/skills_index.faiss"
-      - key: FRONTEND_URL
-        sync: false
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: HF_HOME
+        value: /opt/render/.cache/huggingface
+      - key: TRANSFORMERS_CACHE
+        value: /opt/render/.cache/transformers
+    plan: free
 
   - type: web
-    name: ai-career-mentor-ui
+    name: ai-frontend
     env: python
-    branch: main
-    pythonVersion: 3.12.10
-    buildCommand: pip install -r requirements_render.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: streamlit run ui/app.py --server.port=7312 --server.address=0.0.0.0
-    plan: free
     envVars:
       - key: BACKEND_URL
-        sync: false
+        value: https://ai-backend.onrender.com
+    plan: free
