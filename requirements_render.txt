@@ -22,7 +22,7 @@ openai==1.13.3
 # ML / embedding packages
 sentence-transformers==2.2.2
 transformers==4.33.1
-torch==2.2.0+cpu
+torch==2.2.0
 faiss-cpu==1.7.4
 scikit-learn==1.4.2
 nltk==3.9.1
