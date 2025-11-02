@@ -2,8 +2,8 @@
 
 This application is a full-stack career analysis tool built with a modular FastAPI backend and a user-friendly Streamlit frontend. It uses the Gemini API to analyze a user's resume, extract detailed skill and experience data, and generate personalized, high-quality career recommendations, roadmaps, and project ideas.
 
-Frontend Access link :https://ai-career-mentor-frontend-2u2q.onrender.com
-Backend link : https://ai-career-mentor-backend-2u2q.onrender.com
+Frontend Access link :[https://ai-career-mentor-frontend-2u2q.onrender.com](https://ai-career-mentor-frontend-uxos.onrender.com)
+Backend link : [https://ai-career-mentor-backend-2u2q.onrender.com](https://ai-career-mentor-backend-2u2q.onrender.com)
 
 ✨ Key Features
 
@@ -146,3 +146,4 @@ Troubleshooting
 
 
 ModuleNotFoundError: Ensure all packages listed in Step 2 are installed, especially python-docx and PyMuPDF.
+
