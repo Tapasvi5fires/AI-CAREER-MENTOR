@@ -4,5 +4,5 @@ streamlit run ui/app.py --server.port=7312
 
 
 BACKEND_URL=https://ai-career-mentor-backend-2u2q.onrender.com
-FRONTEND_URL=https://ai-career-mentor-frontend-2u2q.onrender.com/
+FRONTEND_URL=https://ai-career-mentor-frontend-uxos.onrender.com
 for render deployment
