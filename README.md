@@ -1,149 +1,262 @@
-🧠 AI Career Mentor Application
+# 🧠 AI Career Mentor
 
-This application is a full-stack career analysis tool built with a modular FastAPI backend and a user-friendly Streamlit frontend. It uses the Gemini API to analyze a user's resume, extract detailed skill and experience data, and generate personalized, high-quality career recommendations, roadmaps, and project ideas.
+### **AI-Powered Resume Intelligence & Career Recommendation System**
 
-Frontend Access link :[https://ai-career-mentor-frontend-2u2q.onrender.com](https://ai-career-mentor-frontend-uxos.onrender.com)
-Backend link : [https://ai-career-mentor-backend-2u2q.onrender.com](https://ai-career-mentor-backend-2u2q.onrender.com)
+*A full-stack, production-grade multi-agent LLM system built by
+**Tapasvi Panchagnula***
 
-✨ Key Features
+------------------------------------------------------------------------
 
-Robust Profile Extraction: Uses the GeminiAgent to extract core data (skills, interests, education, certifications, career level) into a structured JSON format.
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![Streamlit](https://img.shields.io/badge/Streamlit-Frontend-red)
+![Gemini](https://img.shields.io/badge/Gemini-LLM-yellow)
+![FAISS](https://img.shields.io/badge/FAISS-Vector%20DB-purple)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+![Render](https://img.shields.io/badge/Render-Deployed-success)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
-Advanced Content Generation: The DataEnrichmentAgent performs a secondary, targeted LLM call to generate detailed, high-quality Learning Roadmaps and Advanced Mini-Projects.
+![Issues](https://img.shields.io/github/issues/Tapasvi5fires/AI-CAREER-MENTOR)
+![Forks](https://img.shields.io/github/forks/Tapasvi5fires/AI-CAREER-MENTOR)
+![Stars](https://img.shields.io/github/stars/Tapasvi5fires/AI-CAREER-MENTOR)
+![Last
+Commit](https://img.shields.io/github/last-commit/Tapasvi5fires/AI-CAREER-MENTOR)
 
-Data Visualization Ready: Extracts crucial metrics like Skill Proficiency Scores and Critical Knowledge Gaps directly from the resume, ready for chart visualization in the frontend.
+------------------------------------------------------------------------
 
-Resilience and Stability: Implements Exponential Backoff and Retry logic on all external API calls to overcome transient errors (like 503 Service Unavailable).
+# 🔗 Live Applications
 
-Flexible Input Handling: Supports analysis of pasted text or direct file upload of PDF and DOCX resumes.
+-   **Frontend:** https://ai-career-mentor-frontend-2u2q.onrender.com\
+-   **Backend:** https://ai-career-mentor-backend-2u2q.onrender.com
 
-🏗️ Architecture and Workflow
+------------------------------------------------------------------------
 
-The application uses a clean Modular Agent Pattern to separate concerns:
+# ✨ Key Features
 
-Frontend (Streamlit): Sends user input (raw text or file content) to the FastAPI backend via a multipart/form-data POST request.
+### 🔍 **1. Resume Intelligence Extraction (GeminiAgent)**
 
-main.py (FastAPI): Receives the request, handles file parsing (PDF/DOCX), and orchestrates the agents.
+Extracts: - Technical skills\
+- Soft skills\
+- Experience summary\
+- Education\
+- Certifications\
+- Career readiness level\
+- Skill proficiency scores\
+- Critical knowledge gaps
 
-GeminiAgent (Core Extraction): Makes the first LLM call (low temperature, high max tokens) to extract the primary data points and chart metrics (e.g., skill scores).
+Produces a **structured JSON profile** used by other agents.
 
-DataEnrichmentAgent (High-Quality Generation): Makes a second, targeted LLM call (higher temperature, huge max tokens) using the core profile data to generate verbose, detailed content (Roadmap/Projects).
+------------------------------------------------------------------------
 
-MentorAgent (Orchestrator): Compiles the output from all sources (Gemini, Enrichment, RAG service) into a single, comprehensive dictionary before returning the final JSON response to the Streamlit frontend.
+### 🧠 **2. Deep Content Generation (DataEnrichmentAgent)**
 
-⚙️ Setup and Installation
+Creates: - Multi-stage learning roadmap\
+- Skill improvement plan\
+- Domain-aligned career suggestions\
+- Advanced ML/AI mini-project ideas\
+- Capstone recommendations
 
-Prerequisites
+High creativity + long-form reasoning (high tokens).
 
-Python 3.10+
+------------------------------------------------------------------------
 
-Gemini API Key: Obtain an API key from Google AI Studio.
+### 📊 **3. Visualization-Ready Metrics**
 
-Step 1: Clone and Set up Virtual Environment
+Outputs include: - Skill Radar Scores\
+- Gap Analysis\
+- Domain Fit Level\
+- Strength Matrix
 
-# Clone the repository
-git clone [YOUR_REPO_URL]
-cd ai-career-mentor
+------------------------------------------------------------------------
 
-# Create and activate a virtual environment
-python -m venv venv
-# On Windows:
-.\venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
+### 🔁 **4. Stable & Reliable System**
 
+-   Automatic retry\
+-   Exponential backoff\
+-   Handles: 503 errors, timeouts, LLM rate limits
 
-Step 2: Install Dependencies
+------------------------------------------------------------------------
 
-Install all necessary Python libraries, including FastAPI, Uvicorn, Streamlit, LLM SDKs, and file handling libraries.
+# 🏗️ Architecture Overview
 
-pip install -r requirements.txt
-# (Assuming your requirements.txt covers: fastapi uvicorn requests python-dotenv numpy sentence-transformers python-docx "python-multipart" "pyfpdf" "httpx")
-# If you don't have a requirements.txt:
-pip install fastapi uvicorn requests python-dotenv numpy sentence-transformers python-docx "python-multipart" "PyMuPDF" httpx
+    User → Streamlit UI → FastAPI Backend → Agents → Final JSON → UI Visualization
 
+------------------------------------------------------------------------
 
+# 📂 Project Structure 
 
-Step 3: Configure Secrets
+    AI-CAREER-MENTOR/
+    │
+    ├── app/
+    │   ├── main.py
+    │   ├── agents/
+    │   │   ├── gemini_agent.py
+    │   │   ├── enrichment_agent.py
+    │   │   ├── mentor_agent.py
+    │   └── services/
+    │       ├── rag_service.py
+    │
+    ├── ui/
+    │   ├── app.py
+    │
+    ├── start_backend.sh
+    ├── start_frontend.sh
+    ├── docker-compose.yml
+    ├── requirements.txt
 
-Create a file named .env in the root directory of the project (or set Render environment variables) and add your keys.
+------------------------------------------------------------------------
 
-Example (.env):
+# 🧩 Internal Working --- **Deep Technical Explanation**
 
-LLM_API_KEY="your_gemini_or_llm_api_key_here"
-JOB_API_KEY="optional_job_api_key_for_external_job_search"
-VECTOR_DB_PATH="./data/skills_index.faiss"
+## 1️⃣ Streamlit Frontend
 
-You can also use the provided `.env.example` as a template.
+Role: - Accepts resume text or file\
+- Sends data to FastAPI via POST\
+- Receives: - Profile JSON\
+- Roadmaps\
+- Skill scores\
+- Project list\
+- Displays visual charts and formatted content
 
-▶️ How to Run the Application Locally
+File parsing in frontend ensures fast feedback for users.
 
-You must start the backend (FastAPI) first, followed by the frontend (Streamlit).
+------------------------------------------------------------------------
 
-1. Start the Backend API (FastAPI)
+## 2️⃣ FastAPI Backend
 
-Run the backend server using Uvicorn. For local development this project uses port 7311
-by default (see `run.txt`). Ensure your virtualenv is active, then:
+All logic lives in `app/main.py`
 
-uvicorn app.main:app --reload --port 7311
+Steps:
 
-(The terminal should show: Uvicorn running on http://0.0.0.0:7311)
+### **➤ Step 1 --- File Parsing**
 
-2. Start the Frontend (Streamlit)
+-   `.pdf` → parsed using **PyMuPDF**
+-   `.docx` → parsed using **python-docx**
+-   Raw text → no preprocessing needed\
+-   All converted to **clean plain text**
 
-In a separate terminal window (with the same virtual environment active), start the Streamlit application.
-By default this repo used port 7312 for Streamlit locally (see `run.txt`). Run:
+------------------------------------------------------------------------
 
-streamlit run ui/app.py --server.port=7312
+### **➤ Step 2 --- Agent Orchestration**
 
-Make sure BACKEND_URL in your environment points to the backend (default local: http://localhost:7311).
+#### 🧩 **GeminiAgent --- Core Extraction**
 
-(The app will open automatically in your browser, typically at http://localhost:7312)
+Defined in:\
+`app/agents/gemini_agent.py`
 
-Deploying to Render (free tier)
+Purpose:\
+Produce structured, accurate resume intelligence.
 
-We recommend creating two separate services on Render: one for the backend and one for the frontend.
+Config: - Low temperature\
+- High max tokens\
+- Deterministic output
 
-Backend service (ai-career-mentor-backend)
+------------------------------------------------------------------------
 
-- Service Name: ai-career-mentor-backend
-- Environment / Runtime: Python 3.x
-- Build Command: pip install -r requirements.txt
-- Start Command: uvicorn app.main:app --host 0.0.0.0 --port 10000
+#### 🧩 **DataEnrichmentAgent --- Deep Generation**
 
-Frontend service (ai-career-mentor-ui)
+Defined in:\
+`app/agents/enrichment_agent.py`
 
-- Service Name: ai-career-mentor-ui
-- Environment / Runtime: Python 3.x
-- Build Command: pip install -r requirements.txt
-- Start Command: streamlit run ui/app.py --server.port=10000 --server.address=0.0.0.0
+Purpose: - Generate detailed content\
+- Long-form reasoning\
+- Personalized learning LLM output
 
-Notes on Ports
+Config: - Higher temperature\
+- Very high token limits
 
-- Render assigns public ports automatically; the service start commands above instruct the app to listen on port 10000 inside the container. Render will handle the external port mapping.
+------------------------------------------------------------------------
 
-Environment Variables to add in Render dashboard (Service → Environment):
+#### 🧩 **MentorAgent --- Final Combiner**
 
-- LLM_API_KEY (required if you want LLM features)
-- BACKEND_URL (required for the frontend service: set this to the backend's public Render URL after the backend is deployed)
-- JOB_API_KEY (optional)
-- VECTOR_DB_PATH (optional, if you deploy with a FAISS index)
+Defined in:\
+`app/agents/mentor_agent.py`
 
-Automatic linking
+Combines: - GeminiAgent output\
+- EnrichmentAgent output\
+- RAG service results
 
-1. Create the backend service on Render using the settings above. Once the backend build finishes, copy the backend's public URL (for example: https://ai-career-mentor-backend.onrender.com).
-2. Create the frontend service on Render. In the frontend service's Environment tab, add `BACKEND_URL` and set its value to the backend's public URL.
+Outputs one clean JSON dictionary:
 
-The Streamlit app reads `BACKEND_URL` from the environment and will call the deployed backend automatically.
+    {
+      "profile": ...,
+      "skills": ...,
+      "roadmap": ...,
+      "projects": ...,
+      "charts": ...
+    }
 
-If you want a single place that lists these Render settings (copy/paste friendly), see `render-services.md` in the repo.
+------------------------------------------------------------------------
 
-Troubleshooting
+## 3️⃣ RAG Vector Search
 
-500 Internal Server Error: If this happens, check the FastAPI terminal output. If the error is MAX_TOKENS, the LLM is overloaded, but the retry logic should handle it. If the error is structural, ensure all your agent files are saved correctly and the imports are accurate.
+Defined in:\
+`app/services/rag_service.py`
 
-400 Bad Request: Check the frontend code to ensure it's sending the data as multipart/form-data.
+Uses: - FAISS vector DB\
+- Embedding models\
+- Skill similarity search
 
+Purpose: - Detect missing skills\
+- Suggest role transitions
 
-ModuleNotFoundError: Ensure all packages listed in Step 2 are installed, especially python-docx and PyMuPDF.
+------------------------------------------------------------------------
 
+## 4️⃣ Retry & Backoff Logic
+
+All LLM calls have:
+
+    wait → retry → wait longer → retry
+
+This prevents LLM crash failures.
+
+------------------------------------------------------------------------
+
+# ▶️ Running Locally
+
+## Start Backend:
+
+    uvicorn app.main:app --reload --port 7311
+
+## Start Frontend:
+
+    streamlit run ui/app.py --server.port=7312
+
+------------------------------------------------------------------------
+
+# ☁️ Deployment (Render)
+
+### Backend:
+
+    uvicorn app.main:app --host 0.0.0.0 --port 10000
+
+### Frontend:
+
+    streamlit run ui/app.py --server.port=10000 --server.address=0.0.0.0
+
+Environment Variables required:
+
+    LLM_API_KEY
+    BACKEND_URL
+    VECTOR_DB_PATH
+    JOB_API_KEY (optional)
+
+------------------------------------------------------------------------
+
+# 🔥 Why This Project Is Recruiter-Impressive
+
+-   Real LLM engineering (multi-agent design)\
+-   Backend + Frontend integration\
+-   Resume parsing pipeline\
+-   Production-level error handling\
+-   RAG + FAISS\
+-   Deployments + Docker + Render\
+-   Clean architecture
+
+This shows strong *full-stack AI engineering* capability.
+
+------------------------------------------------------------------------
+
+# ✨ Credits
+
+Built with passion by **Tapasvi Panchagnula** ❤️
